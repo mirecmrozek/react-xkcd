@@ -1,0 +1,7 @@
+@media screen and (max-width: 768px){
+  .comic {
+  }
+}
+.image-wrapper {
+  overflow-x: auto;
+}
