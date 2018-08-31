@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route path="/xkcd-react/" component={Comic} />
+        <Route path="/react-xkcd/" component={Comic} />
       </div>
     )
   }
