@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {withRouter} from 'react-router-dom'
+import {Button, ButtonGroup, UncontrolledCollapse, Card, CardBody} from 'reactstrap'
 
 import './Comic.css'
 
@@ -19,9 +20,17 @@ class Comic extends Component {
   componentWillUnmount() {
     document.removeEventListener("keyPress", (event) => this.handleKeydown(event), false);
   }
-  handleKeydown({key}) {
+  componentWillReceiveProps(nextProps) {
+    if (this.state.id !== Number(nextProps.history.location.pathname.slice(1))){
+      this.loadComic(Number(nextProps.history.location.pathname.slice(1)))
+    }
+  }
+  handleKeydown(event) {
+    const {key, altKey} = event
     const {id} = this.state
-    if (key === 'ArrowLeft' ||
+    if (altKey && key === 'ArrowLeft'){} // not to override alt+ArrowLeft functionality
+    else if (altKey && key === 'ArrowRight'){}
+    else if (key === 'ArrowLeft' ||
       key === 'a' ||
       key === 'A')
       this.goToPage(id-1)
@@ -29,6 +38,9 @@ class Comic extends Component {
       key === 'd' ||
       key === 'D')
       this.goToPage(id+1)
+    else if (key === 'r' ||
+      key === 'R')
+      this.goToPage(this.randomInt(1,2039))
   }
   loadComic(id = this.props.location.pathname.slice(1)) {
     if (this.state && this.state.comics[Number(id)]) {
@@ -59,7 +71,6 @@ class Comic extends Component {
   }
   goToPage(n = '') {
     this.props.history.push('/'.concat(n))
-    this.loadComic(n)
   }
   randomInt(from, to) {
     return Math.floor((Math.random() * to) + from);
@@ -67,11 +78,13 @@ class Comic extends Component {
   render() {
     const navigation =
       <div className="navigation-wrapper">
-        <button onClick={() => this.goToPage(1)}>{'<<'}</button>
-        <button onClick={() => this.goToPage(this.state.id - 1)}>Prev</button>
-        <button onClick={() => this.goToPage(this.randomInt(1, 2039))}>Random</button>
-        <button onClick={() => this.goToPage(this.state.id + 1)}>Next</button>
-        <button onClick={() => this.goToPage()}>{'>>'}</button>
+        <ButtonGroup>
+          <Button color="primary" onClick={() => this.goToPage(1)}>{'<<'}</Button>
+          <Button color="primary" onClick={() => this.goToPage(this.state.id - 1)}>Prev</Button>
+          <Button color="primary" onClick={() => this.goToPage(this.randomInt(1, 2039))}>Random</Button>
+          <Button color="primary" onClick={() => this.goToPage(this.state.id + 1)}>Next</Button>
+          <Button color="primary" active={false} onClick={() => this.goToPage()}>{'>>'}</Button>
+        </ButtonGroup>
       </div>
     return (
       <div className="container">
@@ -83,20 +96,25 @@ class Comic extends Component {
           <div id="left-image-overlay"></div>
         </div>
         <br />
-        <p>
+        <p className="bodyText">
           <strong>Alt text: </strong>
           {this.state.alt}
         </p>
-        <br />
+        {this.state.transcript &&
+            <Fragment>
+              <Button color="primary" id="toggler" className="mb-1">Transcript</Button>
+              <UncontrolledCollapse toggler="#toggler">
+                <Card className="bodyText">
+                  <CardBody>
+                    {this.state.transcript}
+                  </CardBody>
+                </Card>
+              </UncontrolledCollapse>
+            </Fragment>}
         {navigation}
-        <br />
-        <p>{this.state.transcript}</p>
-        <br />
-        <a href={'https://xkcd.com/'.concat(this.state.id)}>This comic on xkcd</a>
-        <br />
-        <br />
         <a href={'https://www.explainxkcd.com/wiki/index.php/'.concat(this.state.id)}>Don't get the joke?</a>
         <br />
+        <a href={'https://xkcd.com/'.concat(this.state.id)}>This comic on xkcd</a>
         <br />
       </div>
     )

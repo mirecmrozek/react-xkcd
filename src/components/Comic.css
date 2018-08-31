@@ -1,24 +1,23 @@
-p {
-  width: 50%;
+.bodyText {
+  max-width: 50%;
   margin: 0 auto;
 }
 @media screen and (max-width: 576px) {
   .comic {
     width: 100%;
   }
-  p {
-    width: 100%;
+  .bodyText {
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 768px) {
-  p {
-    width: 80%;
+  .bodyText {
+    max-width: 80%;
   }
 }
 .image-wrapper {
   overflow-x: auto;
-}
-button {
+  margin: auto;
 }
 .navigation-wrapper {
   display: flex;
@@ -27,6 +26,11 @@ button {
 }
 #left-image-overlay {
   position: static;
+  height: 100%;
   width: 25%;
   background-color: blue;
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
 }
