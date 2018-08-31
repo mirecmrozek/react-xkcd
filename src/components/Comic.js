@@ -21,8 +21,8 @@ class Comic extends Component {
     document.removeEventListener("keyPress", (event) => this.handleKeydown(event), false);
   }
   componentWillReceiveProps(nextProps) {
-    if (this.state.id !== Number(nextProps.history.location.pathname.slice(1))){
-      this.loadComic(Number(nextProps.history.location.pathname.slice(1)))
+    if (this.state.id !== Number(nextProps.history.location.pathname.slice(12))){
+      this.loadComic(Number(nextProps.history.location.pathname.slice(12)))
     }
   }
   handleKeydown(event) {
@@ -42,7 +42,7 @@ class Comic extends Component {
       key === 'R')
       this.goToPage(this.randomInt(1,2039))
   }
-  loadComic(id = this.props.location.pathname.slice(1)) {
+  loadComic(id = this.props.location.pathname.slice(12)) {
     if (this.state && this.state.comics[Number(id)]) {
       const {img, title, alt} = this.state.comics[Number(id)]
       this.setState({img, title, alt, id})
@@ -70,7 +70,7 @@ class Comic extends Component {
     }
   }
   goToPage(n = '') {
-    this.props.history.push('/'.concat(n))
+    this.props.history.push('/react-xkcd/'.concat(n))
   }
   randomInt(from, to) {
     return Math.floor((Math.random() * to) + from);

@@ -7,4 +7,4 @@ This a clone of xkcd in react with additional functionality:
 * link to explainxkcd
 * transcript on toggle
 
-check it out [here](http://github.com/mirec.mrozek/)
+check it out [here](https://mirecmrozek.github.io/react-xkcd)
