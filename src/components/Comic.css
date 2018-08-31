@@ -1,7 +1,32 @@
-@media screen and (max-width: 768px){
+p {
+  width: 50%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 576px) {
   .comic {
+    width: 100%;
+  }
+  p {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  p {
+    width: 80%;
   }
 }
 .image-wrapper {
   overflow-x: auto;
+}
+button {
+}
+.navigation-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+#left-image-overlay {
+  position: static;
+  width: 25%;
+  background-color: blue;
 }
