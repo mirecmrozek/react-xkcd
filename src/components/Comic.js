@@ -44,8 +44,8 @@ class Comic extends Component {
   }
   loadComic(id = this.props.location.pathname.slice(12)) {
     if (this.state && this.state.comics[Number(id)]) {
-      const {img, title, alt} = this.state.comics[Number(id)]
-      this.setState({img, title, alt, id})
+      const {img, title, alt, transcript} = this.state.comics[Number(id)]
+      this.setState({img, title, alt, id, transcript})
     } else {
       fetch('https://xkcd.now.sh/'.concat(id))
         .then(function(response) {
