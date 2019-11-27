@@ -47,7 +47,7 @@ class Comic extends Component {
       const {img, title, alt, transcript} = this.state.comics[Number(id)]
       this.setState({img, title, alt, id, transcript})
     } else {
-      fetch('https://xkcd.now.sh/?comic='.concat(id))
+      fetch('https://xkcd.now.sh/?comic='.concat(id || 'latest'))
         .then(function (response) {
           return response.json()
         })
