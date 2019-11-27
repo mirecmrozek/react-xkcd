@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://mirecmrozek.github.io/react-xkcd",
   "dependencies": {
-    "bootstrap": "4.1.1",
+    "bootstrap": "4.4.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
