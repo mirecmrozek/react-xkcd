@@ -21,34 +21,34 @@ class Comic extends Component {
     document.removeEventListener("keyPress", (event) => this.handleKeydown(event), false);
   }
   componentWillReceiveProps(nextProps) {
-    if (this.state.id !== Number(nextProps.history.location.pathname.slice(12))){
+    if (this.state.id !== Number(nextProps.history.location.pathname.slice(12))) {
       this.loadComic(Number(nextProps.history.location.pathname.slice(12)))
     }
   }
   handleKeydown(event) {
     const {key, altKey} = event
     const {id} = this.state
-    if (altKey && key === 'ArrowLeft'){} // not to override alt+ArrowLeft functionality
-    else if (altKey && key === 'ArrowRight'){}
+    if (altKey && key === 'ArrowLeft') {} // not to override alt+ArrowLeft functionality
+    else if (altKey && key === 'ArrowRight') {}
     else if (key === 'ArrowLeft' ||
       key === 'a' ||
       key === 'A')
-      this.goToPage(id-1)
+      this.goToPage(id - 1)
     else if (key === 'ArrowRight' ||
       key === 'd' ||
       key === 'D')
-      this.goToPage(id+1)
+      this.goToPage(id + 1)
     else if (key === 'r' ||
       key === 'R')
-      this.goToPage(this.randomInt(1,2039))
+      this.goToPage(this.randomInt(1, 2039))
   }
   loadComic(id = this.props.location.pathname.slice(12)) {
     if (this.state && this.state.comics[Number(id)]) {
       const {img, title, alt, transcript} = this.state.comics[Number(id)]
       this.setState({img, title, alt, id, transcript})
     } else {
-      fetch('https://xkcd.now.sh/'.concat(id))
-        .then(function(response) {
+      fetch('https://xkcd.now.sh/?comic='.concat(id))
+        .then(function (response) {
           return response.json()
         })
         .then(({img, title, alt, num, transcript}) => {
@@ -62,7 +62,7 @@ class Comic extends Component {
           })
         })
         .catch((error) => {
-          if (id === '' || id === '/'){
+          if (id === '' || id === '/') {
             return
           }
           this.loadComic('/')
@@ -101,16 +101,16 @@ class Comic extends Component {
           {this.state.alt}
         </p>
         {this.state.transcript &&
-            <Fragment>
-              <Button color="primary" id="toggler" className="mb-1">Transcript</Button>
-              <UncontrolledCollapse toggler="#toggler">
-                <Card className="bodyText">
-                  <CardBody>
-                    {this.state.transcript}
-                  </CardBody>
-                </Card>
-              </UncontrolledCollapse>
-            </Fragment>}
+          <Fragment>
+            <Button color="primary" id="toggler" className="mb-1">Transcript</Button>
+            <UncontrolledCollapse toggler="#toggler">
+              <Card className="bodyText">
+                <CardBody>
+                  {this.state.transcript}
+                </CardBody>
+              </Card>
+            </UncontrolledCollapse>
+          </Fragment>}
         {navigation}
         <a href={'https://www.explainxkcd.com/wiki/index.php/'.concat(this.state.id)}>Don't get the joke?</a>
         <br />
